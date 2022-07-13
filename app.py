@@ -26,14 +26,6 @@ hierarchy_df = df_state_level.join(df_total)
 hierarchy_df.index = pd.to_datetime(hierarchy_df.index)
 hierarchy_df = hierarchy_df.resample("MS").sum()
 loaded_model = pickle.load(open("fbprophet.pckl", "rb"))
-pred_3 = loaded_model.predict(steps_ahead=3)
-pred_4 = loaded_model.predict(steps_ahead=4)
-pred_5 = loaded_model.predict(steps_ahead=5)
-pred_6 = loaded_model.predict(steps_ahead=6)
-pred_9 = loaded_model.predict(steps_ahead=9)
-pred_10 = loaded_model.predict(steps_ahead=10)
-pred_11 = loaded_model.predict(steps_ahead=11)
-pred_12 = loaded_model.predict(steps_ahead=12)
 
 
 @app.route('/')
@@ -46,21 +38,53 @@ def predict():
         state=request.form['state']
         steps_ahead=int(request.form['shortterm'])
         if(steps_ahead==3):
-            predictions_df = pred_3
+            predictions_df = pd.read_csv("pred_3.csv")
+            predictions_df = predictions_df.drop(['Unnamed: 0'], axis=1)
+            predictions_df = predictions_df.set_index("index")
+            predictions_df.index = pd.to_datetime(predictions_df.index)
+            predictions_df.index.name = None
         elif(steps_ahead==4):
-            predictions_df = pred_4
+            predictions_df = pd.read_csv("pred_4.csv")
+            predictions_df = predictions_df.drop(['Unnamed: 0'], axis=1)
+            predictions_df = predictions_df.set_index("index")
+            predictions_df.index = pd.to_datetime(predictions_df.index)
+            predictions_df.index.name = None
         elif(steps_ahead==5):
-            predictions_df = pred_5
+            predictions_df = pd.read_csv("pred_5.csv")
+            predictions_df = predictions_df.drop(['Unnamed: 0'], axis=1)
+            predictions_df = predictions_df.set_index("index")
+            predictions_df.index = pd.to_datetime(predictions_df.index)
+            predictions_df.index.name = None
         elif(steps_ahead==6):
-            predictions_df = pred_6
+            predictions_df = pd.read_csv("pred_6.csv")
+            predictions_df = predictions_df.drop(['Unnamed: 0'], axis=1)
+            predictions_df = predictions_df.set_index("index")
+            predictions_df.index = pd.to_datetime(predictions_df.index)
+            predictions_df.index.name = None
         elif(steps_ahead==9):
-            predictions_df = pred_9
+            predictions_df = pd.read_csv("pred_9.csv")
+            predictions_df = predictions_df.drop(['Unnamed: 0'], axis=1)
+            predictions_df = predictions_df.set_index("index")
+            predictions_df.index = pd.to_datetime(predictions_df.index)
+            predictions_df.index.name = None
         elif(steps_ahead==10):
-            predictions_df = pred_10
+            predictions_df = pd.read_csv("pred_10.csv")
+            predictions_df = predictions_df.drop(['Unnamed: 0'], axis=1)
+            predictions_df = predictions_df.set_index("index")
+            predictions_df.index = pd.to_datetime(predictions_df.index)
+            predictions_df.index.name = None
         elif(steps_ahead==11):
-            predictions_df = pred_11
+            predictions_df = pd.read_csv("pred_11.csv")
+            predictions_df = predictions_df.drop(['Unnamed: 0'], axis=1)
+            predictions_df = predictions_df.set_index("index")
+            predictions_df.index = pd.to_datetime(predictions_df.index)
+            predictions_df.index.name = None
         elif(steps_ahead==12):
-            predictions_df = pred_12
+            predictions_df = pd.read_csv("pred_12.csv")
+            predictions_df = predictions_df.drop(['Unnamed: 0'], axis=1)
+            predictions_df = predictions_df.set_index("index")
+            predictions_df.index = pd.to_datetime(predictions_df.index)
+            predictions_df.index.name = None
         table_df = pd.DataFrame()
         table_df = predictions_df[[state]].copy()
         table_df = table_df.tail(steps_ahead)
