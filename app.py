@@ -25,12 +25,16 @@ df_total = df.groupby("date")["consumption"].sum().to_frame().rename(columns={"c
 hierarchy_df = df_state_level.join(df_total)
 hierarchy_df.index = pd.to_datetime(hierarchy_df.index)
 hierarchy_df = hierarchy_df.resample("MS").sum()
+loaded_model = pickle.load(open("fbprophet.pckl", "rb"))
+pred_3 = loaded_model.predict(steps_ahead=3)
+pred_4 = loaded_model.predict(steps_ahead=4)
+pred_5 = loaded_model.predict(steps_ahead=5)
+pred_6 = loaded_model.predict(steps_ahead=6)
+pred_9 = loaded_model.predict(steps_ahead=9)
+pred_10 = loaded_model.predict(steps_ahead=10)
+pred_11 = loaded_model.predict(steps_ahead=11)
+pred_12 = loaded_model.predict(steps_ahead=12)
 
-
-def ValuePredictor(state, steps_ahead):
-    loaded_model = pickle.load(open("fbprophet.pckl", "rb"))
-    result = loaded_model.predict(steps_ahead=steps_ahead)
-    return result
 
 @app.route('/')
 def home():
@@ -41,7 +45,22 @@ def predict():
     if request.method == 'POST':
         state=request.form['state']
         steps_ahead=int(request.form['shortterm'])
-        predictions_df = ValuePredictor(state, steps_ahead)
+        if(steps_ahead==3):
+            predictions_df = pred_3
+        elif(steps_ahead==4):
+            predictions_df = pred_4
+        elif(steps_ahead==5):
+            predictions_df = pred_5
+        elif(steps_ahead==6):
+            predictions_df = pred_6
+        elif(steps_ahead==9):
+            predictions_df = pred_9
+        elif(steps_ahead==10):
+            predictions_df = pred_10
+        elif(steps_ahead==11):
+            predictions_df = pred_11
+        elif(steps_ahead==12):
+            predictions_df = pred_12
         table_df = pd.DataFrame()
         table_df = predictions_df[[state]].copy()
         table_df = table_df.tail(steps_ahead)
