@@ -28,12 +28,16 @@ hierarchy_df = hierarchy_df.resample("MS").sum()
 
 
 def ValuePredictor(state, steps_ahead):
-    loaded_model = pickle.load(open("auto-arima.pckl", "rb"))
+    loaded_model = pickle.load(open("fbprophet.pckl", "rb"))
     result = loaded_model.predict(steps_ahead=steps_ahead)
     return result
 
-@app.route('/result', methods = ['POST', 'GET'])
-def result():
+@app.route('/')
+def home():
+    return render_template('home.html')
+
+@app.route('/predict', methods = ['POST', 'GET'])
+def predict():
     if request.method == 'POST':
         state=request.form['state']
         steps_ahead=int(request.form['shortterm'])
