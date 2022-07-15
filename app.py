@@ -61,6 +61,18 @@ def predict():
             predictions_df = predictions_df.set_index("index")
             predictions_df.index = pd.to_datetime(predictions_df.index)
             predictions_df.index.name = None
+        elif(steps_ahead==7):
+            predictions_df = pd.read_csv("pred_7.csv")
+            predictions_df = predictions_df.drop(['Unnamed: 0'], axis=1)
+            predictions_df = predictions_df.set_index("index")
+            predictions_df.index = pd.to_datetime(predictions_df.index)
+            predictions_df.index.name = None
+        elif(steps_ahead==8):
+            predictions_df = pd.read_csv("pred_8.csv")
+            predictions_df = predictions_df.drop(['Unnamed: 0'], axis=1)
+            predictions_df = predictions_df.set_index("index")
+            predictions_df.index = pd.to_datetime(predictions_df.index)
+            predictions_df.index.name = None
         elif(steps_ahead==9):
             predictions_df = pd.read_csv("pred_9.csv")
             predictions_df = predictions_df.drop(['Unnamed: 0'], axis=1)
@@ -81,6 +93,18 @@ def predict():
             predictions_df.index.name = None
         elif(steps_ahead==12):
             predictions_df = pd.read_csv("pred_12.csv")
+            predictions_df = predictions_df.drop(['Unnamed: 0'], axis=1)
+            predictions_df = predictions_df.set_index("index")
+            predictions_df.index = pd.to_datetime(predictions_df.index)
+            predictions_df.index.name = None
+        elif(steps_ahead==18):
+            predictions_df = pd.read_csv("pred_18.csv")
+            predictions_df = predictions_df.drop(['Unnamed: 0'], axis=1)
+            predictions_df = predictions_df.set_index("index")
+            predictions_df.index = pd.to_datetime(predictions_df.index)
+            predictions_df.index.name = None
+        elif(steps_ahead==24):
+            predictions_df = pd.read_csv("pred_24.csv")
             predictions_df = predictions_df.drop(['Unnamed: 0'], axis=1)
             predictions_df = predictions_df.set_index("index")
             predictions_df.index = pd.to_datetime(predictions_df.index)
